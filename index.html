@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Cards</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Product Cards will be dynamically generated here -->
+  </div>
+
+  <script>
+    // Fetching data from the endpoint and dynamically creating product cards
+    fetch('https://fakestoreapi.com/products/')
+      .then(response => response.json())
+      .then(data => {
+        const container = document.querySelector('.container');
+        data.forEach(product => {
+          const card = document.createElement('div');
+          card.classList.add('card');
+          card.innerHTML = `
+            <img src="${product.image}" alt="${product.title}">
+            <h2>${product.title}</h2>
+            <p>${product.description}</p>
+            <span class="price">$${product.price}</span>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(error => {
+        console.error('There was a problem fetching the data:', error);
+      });
+  </script>
+</body>
+</html>
